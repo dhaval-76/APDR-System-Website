@@ -1,13 +1,92 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-image: url("../public/Images/svg.png");
+  background-repeat: no-repeat;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.app_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  width: 30%;
+  padding: 30px;
+  background-color: rgba(255, 255, 255);
+  color: black;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+}
+#login {
+  text-align: center;
+  color: black;
+  font-size: 70px;
+  margin-bottom: 20px;
+  font-family: "Fredoka", sans-serif;
+}
+Form {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 20px;
+}
+#submit-btn {
+  margin-top: 20px;
+  width: 100%;
+  font-size: 20px !important;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+#input-field {
+  border-radius: 10px;
+  font-size: 20px !important;
+}
+.formlog_orContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  font-weight: 200;
+  color: grey;
+}
+
+#formlog_orContainer_logo {
+  width: 40px;
+  margin: 10px;
+}
+
+a {
+  text-decoration: none;
+  padding: 5px;
+}
+.container_SignUp {
+  width: 30%;
+  padding: 30px;
+  background-color: rgba(255, 255, 255);
+  color: black;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+}
+#Form_SignUp {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 20px;
+}
+
+#input-field_SignUp {
+  border-radius: 10px;
+  font-size: 20px !important;
+}
+
+#input-field_SignUp:focus {
+  box-shadow: none;
+}
+
+#input-field_login {
+  border-radius: 10px;
+  font-size: 20px !important;
+}
+
+#input-field_login:focus {
+  box-shadow: none;
 }
