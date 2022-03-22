@@ -13,7 +13,7 @@ export default function LogIn() {
       icon: "success",
       title: "Logged In Successfully",
       showConfirmButton: false,
-      timer: 1500,
+      timer: 1000500,
     });
   }
 
@@ -53,10 +53,10 @@ export default function LogIn() {
         <div className="formlog_orContainer">
           <div>or connect with</div>
           <div>
-            <img src="/Images/search.png" id="formlog_orContainer_logo" />
+            <img src="/Images/search.png" alt="img" id="formlog_orContainer_logo" />
           </div>
           <div>
-            Don't have an account?<a href="">Sign up</a>
+            Don't have an account?<a href="/signup">Sign up</a>
           </div>
         </div>
       </Form>

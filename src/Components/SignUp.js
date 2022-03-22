@@ -91,7 +91,7 @@ export default function SignUp() {
             <img src="/Images/search.png" id="formlog_orContainer_logo" />
           </div>
           <div>
-            Already have an account?<a href="">Log In</a>
+            Already have an account?<a href="/">Log In</a>
           </div>
         </div>
       </Form>
