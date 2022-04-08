@@ -11,6 +11,7 @@ export default function App() {
     <Router>
       <div className="app_container">
         <Route path="/" exact component={LogIn} />
+        <Route path="/login" exact component={LogIn} />
         <Route path="/signup" component={SignUp} />
         <Route path="/dashboard" component={Dashboard} />
       </div>

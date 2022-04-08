@@ -13,7 +13,8 @@ export default function LogIn() {
       icon: "success",
       title: "Logged In Successfully",
       showConfirmButton: false,
-      timer: 1000500,
+      timer: 1800,
+      
     });
   }
 
