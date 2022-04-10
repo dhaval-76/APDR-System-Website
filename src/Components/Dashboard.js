@@ -1,6 +1,9 @@
-import {  Navbar,Dropdown,NavDropdown } from "react-bootstrap";
+import { Navbar, Dropdown, NavDropdown } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
+  
+
   return (
     <>
       <div className="container_nav">
@@ -27,20 +30,20 @@ export default function Dashboard() {
         </Navbar>
       </div>
       <div className="flex-container">
-        <div className="card">
+        <Link className="card" to="/analysis">
           <img src="/Images/Humaaans - 1 Character.png" alt="img" />
           <span id="card_footer">Analysis</span>
-        </div>
-        <div className="card">
+        </Link>
+        <Link className="card" to="/vehicle-health">
           <img src="/Images/Beep Beep - Medium Vehicle.png" alt="img" />
           <span id="card_footer">Vehicle Health</span>
-        </div>
-        <div className="card">
+        </Link>
+        <Link className="card" to="/chat">
           <div className="chat">
             <img src="/Images/Croods - Comments.png" alt="img" />
           </div>
           <span id="card_footer">Chat</span>
-        </div>
+        </Link>
       </div>
     </>
   );

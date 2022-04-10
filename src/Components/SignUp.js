@@ -1,5 +1,4 @@
-import axios from "axios";
-import { Alert } from "bootstrap";
+
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
@@ -88,7 +87,7 @@ export default function SignUp() {
         <div className="formlog_orContainer">
           <div>or connect with</div>
           <div>
-            <img src="/Images/search.png" id="formlog_orContainer_logo" />
+            <img src="/Images/search.png" id="formlog_orContainer_logo" alt="" />
           </div>
           <div>
             Already have an account?<a href="/">Log In</a>

@@ -98,6 +98,10 @@ a {
   justify-content: space-around;
   align-items: center;
   width: 100%;
+  color: black;
+}
+.flex-container:hover {
+  color: black;
 }
 
 .card {
@@ -107,6 +111,7 @@ a {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  color: black;
 }
 
 .card:hover {
@@ -115,6 +120,7 @@ a {
   border-radius: 20px;
   box-shadow: 10px 10px 6px 6px #888888;
   cursor: pointer;
+  color: black;
 }
 
 #card_footer {
@@ -139,6 +145,8 @@ a {
   padding: 10px;
   font-size: 25px;
   width: 100%;
+  background-color:rgba(255, 255, 255, 0.75);
+  
 }
 
 .navbar-expand {
@@ -175,8 +183,38 @@ a {
   width: 10px !important;
 }
 
-a.dropdown-item:hover{
+a.dropdown-item:hover {
   background: none;
   transition-duration: 0.5s;
   transform: scale(0.9);
+}
+
+.container-fluid {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+
+.g1,
+.g2 {
+  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  height: 70%;
+  background-color: white;
+  border-radius: 20px;
+  padding: 30px 20px;
+}
+
+.nav-link {
+  color: black;
+}
+
+.nav-link:hover{
+  transition: 0.5s;
+  transform: scale(1.1);
+  /* color:rgba(14, 195, 195, 0.582); */
+  color:#4361ee
 }
