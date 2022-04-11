@@ -18,6 +18,7 @@ import { Redirect } from "react-router-dom";
 import { useStateValue } from "../StateProvider";
 import { auth } from "../firebase";
 import { actionTypes } from "../reducer";
+import { Link } from "react-router-dom";
 
 function Analysis() {
   const [{ isAuthenticated }, dispatch] = useStateValue();
@@ -44,7 +45,7 @@ function Analysis() {
       <div className="container_nav">
         <Navbar bg="light">
           <div class="flex-items">
-            <Navbar.Brand href="#home" style={{ fontSize: "40px" }}>
+            <Navbar.Brand style={{ fontSize: "40px" }}>
               ADPR System
             </Navbar.Brand>
           </div>
@@ -53,15 +54,12 @@ function Analysis() {
               class="flex-items"
               style={{ display: "flex", marginTop: "5px" }}
             >
-              <Nav.Link href="/analysis" id="navdata">
+              <Link to="/analysis" id="navdata">
                 Analysis
-              </Nav.Link>
-              <Nav.Link href="/vehicle-health" id="navdata">
-                Vehicle Health
-              </Nav.Link>
-              <Nav.Link href="/chat" id="navdata">
-                Chat
-              </Nav.Link>
+              </Link>
+
+              <Link to="/vehicle-health">Vehicle Health</Link>
+              <Link to="/chat">Chat</Link>
             </div>
             <div class="flex-items">
               <Dropdown>
