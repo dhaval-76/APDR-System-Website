@@ -1,8 +1,29 @@
 import { Navbar, Dropdown, NavDropdown } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { auth } from "../firebase";
+import { actionTypes } from "../reducer";
+import { useStateValue } from "../StateProvider";
 
 export default function Dashboard() {
-  
+  const [{ isAuthenticated }, dispatch] = useStateValue();
+
+  if (!isAuthenticated) {
+    return <Redirect to="/login" />;
+  }
+
+  function handleLogout(e) {
+    e.preventDefault();
+
+    auth
+      .signOut()
+      .then((result) => {
+        dispatch({
+          type: actionTypes.REMOVE_USER,
+        });
+      })
+      .catch((error) => alert(error.meesage));
+  }
 
   return (
     <>
@@ -23,7 +44,7 @@ export default function Dashboard() {
                 <Dropdown.Item href="#/action-1">Edit Profile</Dropdown.Item>
 
                 <NavDropdown.Divider />
-                <Dropdown.Item href="#/action-3">Log Out</Dropdown.Item>
+                <Dropdown.Item onClick={handleLogout}>Log Out</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>

@@ -1,7 +1,11 @@
-
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { auth, provider } from "../firebase";
+import { actionTypes } from "../reducer";
+import { useStateValue } from "../StateProvider";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -9,16 +13,32 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
 
+  const [{ isAuthenticated }, dispatch] = useStateValue();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPass) {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Logged In Successfully",
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      console.log({ email, password });
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then((result) => {
+          dispatch({
+            type: actionTypes.SET_USER,
+            user: result.user,
+          });
+
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Sign Up Successfully",
+            showConfirmButton: false,
+            timer: 1800,
+          });
+        })
+        .catch((error) => {
+          alert(error.meesage);
+          console.log({ ...error });
+        });
     } else {
       Swal.fire({
         position: "center",
@@ -31,6 +51,24 @@ export default function SignUp() {
     }
   };
 
+  function handleGoogleSignIn(e) {
+    e.preventDefault();
+
+    auth
+      .signInWithPopup(provider)
+      .then((result) => {
+        dispatch({
+          type: actionTypes.SET_USER,
+          user: result.user,
+        });
+      })
+      .catch((error) => alert(error.meesage));
+  }
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <div className="container_SignUp">
       <Form id="Form_SignUp" onSubmit={handleSubmit}>
@@ -38,7 +76,7 @@ export default function SignUp() {
 
         <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Control
-            id="input-field_SignUp"
+            className="input-field_SignUp"
             type="text"
             placeholder="Enter Name"
             value={name}
@@ -49,7 +87,7 @@ export default function SignUp() {
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Control
-            id="input-field_SignUp"
+            className="input-field_SignUp"
             type="email"
             placeholder="Enter Email"
             value={email}
@@ -61,7 +99,7 @@ export default function SignUp() {
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Control
-            id="input-field_SignUp"
+            className="input-field_SignUp"
             type="password"
             placeholder="Enter Password"
             value={password}
@@ -72,7 +110,7 @@ export default function SignUp() {
 
         <Form.Group className="mb-3" controlId="formBasicCnfPassword">
           <Form.Control
-            id="input-field_SignUp"
+            className="input-field_SignUp"
             type="password"
             placeholder="Confirm Password"
             value={confirmPass}
@@ -87,10 +125,15 @@ export default function SignUp() {
         <div className="formlog_orContainer">
           <div>or connect with</div>
           <div>
-            <img src="/Images/search.png" id="formlog_orContainer_logo" alt="" />
+            <img
+              onClick={handleGoogleSignIn}
+              src="/Images/search.png"
+              id="formlog_orContainer_logo"
+              alt=""
+            />
           </div>
           <div>
-            Already have an account?<a href="/">Log In</a>
+            Already have an account?<Link to="/login">Log In</Link>
           </div>
         </div>
       </Form>

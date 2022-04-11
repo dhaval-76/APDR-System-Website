@@ -1,8 +1,31 @@
 import { Navbar, Dropdown, NavDropdown, Nav } from "react-bootstrap";
 
 import React from "react";
+import { Redirect } from "react-router-dom";
+import { useStateValue } from "../StateProvider";
+import { auth } from "../firebase";
+import { actionTypes } from "../reducer";
 
 export default function Chat() {
+  const [{ isAuthenticated }, dispatch] = useStateValue();
+
+  function handleLogout(e) {
+    e.preventDefault();
+
+    auth
+      .signOut()
+      .then((result) => {
+        dispatch({
+          type: actionTypes.REMOVE_USER,
+        });
+      })
+      .catch((error) => alert(error.meesage));
+  }
+
+  if (!isAuthenticated) {
+    return <Redirect to="/login" />;
+  }
+
   return (
     <>
       <div className="container_nav">
@@ -37,7 +60,7 @@ export default function Chat() {
                   <Dropdown.Item href="#/action-1">Edit Profile</Dropdown.Item>
 
                   <NavDropdown.Divider />
-                  <Dropdown.Item href="#/action-3">Log Out</Dropdown.Item>
+                  <Dropdown.Item onClic={handleLogout}>Log Out</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </div>

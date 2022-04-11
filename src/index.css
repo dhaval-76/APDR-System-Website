@@ -74,21 +74,21 @@ a {
   font-size: 20px;
 }
 
-#input-field_SignUp {
+.input-field_SignUp {
   border-radius: 10px;
   font-size: 20px !important;
 }
 
-#input-field_SignUp:focus {
+.input-field_SignUp:focus {
   box-shadow: none;
 }
 
-#input-field_login {
+.input-field_login {
   border-radius: 10px;
   font-size: 20px !important;
 }
 
-#input-field_login:focus {
+.input-field_login:focus {
   box-shadow: none;
 }
 

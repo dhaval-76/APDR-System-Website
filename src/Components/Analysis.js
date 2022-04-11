@@ -14,8 +14,31 @@ import {
 } from "recharts";
 import data from "../data";
 import tempLineData from "../tempLineData";
+import { Redirect } from "react-router-dom";
+import { useStateValue } from "../StateProvider";
+import { auth } from "../firebase";
+import { actionTypes } from "../reducer";
 
 function Analysis() {
+  const [{ isAuthenticated }, dispatch] = useStateValue();
+
+  function handleLogout(e) {
+    e.preventDefault();
+
+    auth
+      .signOut()
+      .then((result) => {
+        dispatch({
+          type: actionTypes.REMOVE_USER,
+        });
+      })
+      .catch((error) => alert(error.meesage));
+  }
+
+  if (!isAuthenticated) {
+    return <Redirect to="/login" />;
+  }
+
   return (
     <>
       <div className="container_nav">
@@ -50,7 +73,7 @@ function Analysis() {
                   <Dropdown.Item href="#/action-1">Edit Profile</Dropdown.Item>
 
                   <NavDropdown.Divider />
-                  <Dropdown.Item href="#/action-3">Log Out</Dropdown.Item>
+                  <Dropdown.Item onClick={handleLogout}>Log Out</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </div>
@@ -77,7 +100,7 @@ function Analysis() {
                 value="Measure Of Intoxication"
                 offset={325}
                 position="top"
-                style={{ fontWeight: "500", fontSize: "30px" ,padding:"5px "}}
+                style={{ fontWeight: "500", fontSize: "30px", padding: "5px " }}
               />
             </XAxis>
             <YAxis>

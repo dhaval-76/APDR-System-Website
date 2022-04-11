@@ -1,21 +1,57 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+
+import { auth, provider } from "../firebase";
+import { actionTypes } from "../reducer";
+import { useStateValue } from "../StateProvider";
 
 export default function LogIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [{ isAuthenticated }, dispatch] = useStateValue();
+
   function handleSubmit(e) {
     e.preventDefault();
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Logged In Successfully",
-      showConfirmButton: false,
-      timer: 1800,
-      
-    });
+
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        dispatch({
+          type: actionTypes.SET_USER,
+          user: result.user,
+        });
+
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Logged In Successfully",
+          showConfirmButton: false,
+          timer: 1800,
+        });
+      })
+      .catch((error) => alert(error.meesage));
+  }
+
+  function handleGoogleSignIn(e) {
+    e.preventDefault();
+
+    auth
+      .signInWithPopup(provider)
+      .then((result) => {
+        dispatch({
+          type: actionTypes.SET_USER,
+          user: result.user,
+        });
+      })
+      .catch((error) => alert(error.meesage));
+  }
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
   }
 
   return (
@@ -26,7 +62,7 @@ export default function LogIn() {
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
-            id="input-field_login"
+            className="input-field_login"
             type="email"
             placeholder="Enter Email"
             required
@@ -39,7 +75,7 @@ export default function LogIn() {
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
-            id="input-field_login"
+            className="input-field_login"
             type="password"
             placeholder="Enter Password"
             required
@@ -54,10 +90,15 @@ export default function LogIn() {
         <div className="formlog_orContainer">
           <div>or connect with</div>
           <div>
-            <img src="/Images/search.png" alt="img" id="formlog_orContainer_logo" />
+            <img
+              onClick={handleGoogleSignIn}
+              src="/Images/search.png"
+              alt="img"
+              id="formlog_orContainer_logo"
+            />
           </div>
           <div>
-            Don't have an account?<a href="/signup">Sign up</a>
+            Don't have an account?<Link to="/signup">Sign up</Link>
           </div>
         </div>
       </Form>

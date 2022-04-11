@@ -15,6 +15,10 @@ import {
   Label,
 } from "recharts";
 import tempLineData from "../tempLineData";
+import { Redirect } from "react-router-dom";
+import { useStateValue } from "../StateProvider";
+import { auth } from "../firebase";
+import { actionTypes } from "../reducer";
 
 const pieData = [{ name: "Group A", value: 100 }];
 const COLORS = ["#38b000", "#ffbe0b", "#d00000"];
@@ -22,6 +26,7 @@ const COLORS = ["#38b000", "#ffbe0b", "#d00000"];
 export default function VehicleHealth() {
   const [value, setValue] = useState(100);
   const [color, setcolor] = useState(COLORS[0]);
+  const [{ isAuthenticated }, dispatch] = useStateValue();
 
   useEffect(() => {
     if (value <= 100) {
@@ -35,6 +40,23 @@ export default function VehicleHealth() {
     }
     console.log({ value });
   }, [value]);
+
+  function handleLogout(e) {
+    e.preventDefault();
+
+    auth
+      .signOut()
+      .then((result) => {
+        dispatch({
+          type: actionTypes.REMOVE_USER,
+        });
+      })
+      .catch((error) => alert(error.meesage));
+  }
+
+  if (!isAuthenticated) {
+    return <Redirect to="/login" />;
+  }
 
   // const
   return (
@@ -71,7 +93,7 @@ export default function VehicleHealth() {
                   <Dropdown.Item href="#/action-1">Edit Profile</Dropdown.Item>
 
                   <NavDropdown.Divider />
-                  <Dropdown.Item href="#/action-3">Log Out</Dropdown.Item>
+                  <Dropdown.Item onClick={handleLogout}>Log Out</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </div>
