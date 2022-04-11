@@ -65,6 +65,17 @@ export default function Chat() {
           </div>
         </Navbar>
       </div>
+      <div class="container_chat" >
+        <div>
+          <section>Driver 2: Alert!!! vehicle behind is drowsy </section>
+        </div>
+        <div>
+          <section>Driver 1: Warning!!! vehicle engine overheated</section>
+        </div>
+        <div>
+          <section>Driver 3: The driver behind you is drunk be aware !!!</section>
+        </div>
+      </div>
     </>
   );
 }

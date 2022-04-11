@@ -22,7 +22,7 @@ import { actionTypes } from "../reducer";
 import { Link } from "react-router-dom";
 
 const pieData = [{ name: "Group A", value: 100 }];
-const COLORS = ["#38b000", "#ffbe0b", "#d00000"];
+const COLORS = ["#ffbe0b", "#38b000", "#d00000"];
 
 export default function VehicleHealth() {
   const [value, setValue] = useState(100);
@@ -141,7 +141,7 @@ export default function VehicleHealth() {
           </LineChart>
         </div>
         <div className="g1">
-          <button onClick={() => setValue(50)} type="button">
+          {/* <button onClick={() => setValue(50)} type="button">
             2nd level
           </button>
           <button onClick={() => setValue(20)} type="button">
@@ -149,7 +149,7 @@ export default function VehicleHealth() {
           </button>
           <button onClick={() => setValue(100)} type="button">
             reset button
-          </button>
+          </button> */}
           <div
             style={{
               display: "flex",
@@ -161,12 +161,13 @@ export default function VehicleHealth() {
               <Pie
                 data={pieData}
                 cx={300}
-                cy={170}
+                cy={190}
                 innerRadius={120}
                 outerRadius={170}
                 fill="#8884d8"
-                paddingAngle={1}
+                paddingAngle={80}
                 dataKey="value"
+                nameKey="name"
               >
                 <Label
                   value="Vehicle Health "

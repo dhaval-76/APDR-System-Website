@@ -13,6 +13,8 @@ import {
   AreaChart,
 } from "recharts";
 import data from "../data";
+import data2 from "../data2";
+
 import tempLineData from "../tempLineData";
 import { Redirect } from "react-router-dom";
 import { useStateValue } from "../StateProvider";
@@ -92,7 +94,7 @@ function Analysis() {
                 <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <XAxis dataKey="name">
+            <XAxis dataKey="timeStamp">
               <Label value="Timestamp -->" offset={3} position="bottom" />
               <Label
                 value="Measure Of Intoxication"
@@ -113,7 +115,7 @@ function Analysis() {
             <Tooltip />
             <Area
               type="monotone"
-              dataKey="uv"
+              dataKey="pv"
               stroke="#8884d8"
               fillOpacity={1}
               fill="url(#colorUv)"
@@ -124,7 +126,7 @@ function Analysis() {
           <AreaChart
             width={600}
             height={400}
-            data={data}
+            data={data2}
             margin={{ top: 40, right: 30, left: 10, bottom: 20 }}
           >
             <defs>
@@ -133,7 +135,7 @@ function Analysis() {
                 <stop offset="95%" stopColor="#ffc658" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <XAxis dataKey="name">
+            <XAxis dataKey="timeStamp">
               <Label value="Timestamp -->" offset={3} position="bottom" />
               <Label
                 value="Measure Of Drowsiness"
@@ -154,7 +156,7 @@ function Analysis() {
             <Tooltip />
             <Area
               type="monotone"
-              dataKey="uv"
+              dataKey="pv"
               stroke="#ffc658"
               fillOpacity={1}
               fill="url(#colorPv)"
