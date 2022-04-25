@@ -2,6 +2,7 @@
   "name": "adpr-system",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/DJ-Strike-2021-22/APDR-System-Website",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -13,6 +14,7 @@
     "axios": "^0.26.1",
     "bootstrap": "^5.1.3",
     "cookies-js": "^1.2.3",
+    "gh-pages": "^3.2.3",
     "lodash": "^4.17.21",
     "moment": "^2.29.2",
     "react": "^17.0.2",
@@ -30,6 +32,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
