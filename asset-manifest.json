@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/DJ-Strike-2021-22/APDR-System-Website/static/css/main.09ecd7a5.css",
+    "main.js": "/DJ-Strike-2021-22/APDR-System-Website/static/js/main.6d8dfee5.js",
+    "static/media/svg.png": "/DJ-Strike-2021-22/APDR-System-Website/static/media/svg.c39a0b371e1a17d1ea5e.png",
+    "index.html": "/DJ-Strike-2021-22/APDR-System-Website/index.html",
+    "main.09ecd7a5.css.map": "/DJ-Strike-2021-22/APDR-System-Website/static/css/main.09ecd7a5.css.map",
+    "main.6d8dfee5.js.map": "/DJ-Strike-2021-22/APDR-System-Website/static/js/main.6d8dfee5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.09ecd7a5.css",
+    "static/js/main.6d8dfee5.js"
+  ]
+}
