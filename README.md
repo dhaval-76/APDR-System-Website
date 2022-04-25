@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# **`APDR System`**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> - A Simple cost efficient project used for Accident Detection, Prevention and Reporting and Vehicle to Vehicle communication using Li-Fi technology
+> - A Web Application is created using React in order to display all the necessary data from the firebase which is obtained from the sensors using ESP8266 WiFi module
 
-## Available Scripts
+<h3>Abstract</h3>
 
-In the project directory, you can run:
+><p style='text-align: justify;'>In present era, one of the main >cause of road mishap/accidents is that after driving hundreds of 
+>kilometers at a time, the driver becomes fatigued and 
+>eventually falls asleep while driving. The motorist may 
+>potentially be completely oblivious of any vehicle flaws. 
+>The number of hit-and-run accidents caused by drivers
+>mostly due to intoxication is on the increasing on daily 
+>basis. As a result, there is an urgent need for a device that 
+>stops this from happening, so that many lives can be 
+>spared every day. Humans' greatest concern is their 
+>safety. We need to be especially cautious when it comes to 
+>driving As a result, the main objective of this project is to 
+>create a feasible solution to these safety concerns. A 
+>automobile will be used to house the proposed system. 
+>The driver will be given goggles that have infrared 
+>sensors built into them. If the motorist is discovered to be 
+>drowsy or under the influence of alcohol, the driver will 
+>be charged. If the driver does not stop the automobile 
+>after many buzzers, the car will begin to slow down and 
+>eventually stop. The device also has a feature that allows 
+>you to follow your automobile by sending GPS 
+>coordinates to the local emergency services whenever it is 
+>involved in an accident. The system will use Li-fi 
+>technology to provide vehicle-to-vehicle communication 
+>(using light signals). By reporting any type of 
+>irresponsible driving to the nearest control room, this will 
+>help improve general road safety. In the future, every car 
+>may be required by law to have such a safety system 
+>installed for the protection of the driver and passengers. 
+>As a result, the system provides a full solution for 
+>preventing accidents, resulting in the daily saving of a 
+>large number of lives.
+</p>
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<h3>Here is a glimpse of our application</h3>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Login And Signup
 
-### `npm test`
+<img src="public/Images/Screenshot 2022-04-25 23.32.12.png"/>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Dashboard
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<img src="public/Images/Screenshot 2022-04-25 23.34.25.png"/>
