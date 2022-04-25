@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
-import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
-import { auth, provider } from "../firebase";
-import { actionTypes } from "../reducer";
-import { useStateValue } from "../StateProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import CircularProgress from "@mui/material/CircularProgress";
+
+import {
+  authErrorSelector,
+  authIsAuthenticatedSelector,
+  authIsLoadingSelector,
+} from "../store/auth/selector";
+import { authSignUp } from "../store/auth/slice";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -13,65 +18,35 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
 
-  const [{ isAuthenticated }, dispatch] = useStateValue();
+  const isLoading = useSelector(authIsLoadingSelector);
+  const isAuthenticated = useSelector(authIsAuthenticatedSelector);
+  const error = useSelector(authErrorSelector);
 
-  const handleSubmit = (e) => {
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated && !isLoading && error === "") {
+      navigate("/", { replace: true });
+    }
+  }, [isAuthenticated, isLoading, error, navigate]);
+
+  const signUphandler = (e) => {
     e.preventDefault();
     if (password === confirmPass) {
-      console.log({ email, password });
-      auth
-        .createUserWithEmailAndPassword(email, password)
-        .then((result) => {
-          dispatch({
-            type: actionTypes.SET_USER,
-            user: result.user,
-          });
-
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Sign Up Successfully",
-            showConfirmButton: false,
-            timer: 1800,
-          });
-        })
-        .catch((error) => {
-          alert(error.meesage);
-          console.log({ ...error });
-        });
+      dispatch(authSignUp({ name, email, pass: password }));
     } else {
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "Oops...",
-        text: "Password doesn't match",
-        showConfirmButton: false,
-        timer: 1500,
+      toast.error("Password doesn't match", {
+        position: toast.POSITION.TOP_CENTER,
+        toastId: "passwordNotMatchError",
       });
     }
   };
 
-  function handleGoogleSignIn(e) {
-    e.preventDefault();
-
-    auth
-      .signInWithPopup(provider)
-      .then((result) => {
-        dispatch({
-          type: actionTypes.SET_USER,
-          user: result.user,
-        });
-      })
-      .catch((error) => alert(error.meesage));
-  }
-
-  if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
-  }
-
   return (
     <div className="container_SignUp">
-      <Form id="Form_SignUp" onSubmit={handleSubmit}>
+      <Form id="Form_SignUp" onSubmit={signUphandler}>
         <div id="login">SignUp</div>
 
         <Form.Group className="mb-3" controlId="formBasicName">
@@ -118,24 +93,23 @@ export default function SignUp() {
             onChange={(e) => setConfirmPass(e.target.value)}
           />
         </Form.Group>
-
-        <Button id="submit-btn" variant="success" type="submit">
-          Sign Up
-        </Button>
-        <div className="formlog_orContainer">
-          <div>or connect with</div>
-          <div>
-            <img
-              onClick={handleGoogleSignIn}
-              src="/Images/search.png"
-              id="formlog_orContainer_logo"
-              alt=""
-            />
-          </div>
-          <div>
-            Already have an account?<Link to="/login">Log In</Link>
-          </div>
-        </div>
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <>
+            <Button id="submit-btn" variant="success" type="submit">
+              Sign Up
+            </Button>
+            <div className="formlog_orContainer">
+              <div>
+                Already have an account?
+                <Link to="/login" replace>
+                  Log In
+                </Link>
+              </div>
+            </div>
+          </>
+        )}
       </Form>
     </div>
   );

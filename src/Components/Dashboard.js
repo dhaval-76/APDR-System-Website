@@ -1,47 +1,38 @@
-import { Navbar, Dropdown, NavDropdown } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
+import React from "react";
+import { Dropdown, Navbar, NavDropdown } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { auth } from "../firebase";
-import { actionTypes } from "../reducer";
-import { useStateValue } from "../StateProvider";
+
+import { authLogout } from "../store/auth/slice";
 
 export default function Dashboard() {
-  const [{ isAuthenticated }, dispatch] = useStateValue();
+  const dispatch = useDispatch();
 
-  if (!isAuthenticated) {
-    return <Redirect to="/login" />;
-  }
-
-  function handleLogout(e) {
+  const handleLogout = (e) => {
     e.preventDefault();
 
-    auth
-      .signOut()
-      .then((result) => {
-        dispatch({
-          type: actionTypes.REMOVE_USER,
-        });
-      })
-      .catch((error) => alert(error.meesage));
-  }
-
+    dispatch(authLogout());
+  };
   return (
     <>
       <div className="container_nav">
         <Navbar bg="light">
-          <div class="flex-items">
-            <Navbar.Brand href="#home" style={{ fontSize: "40px" }}>
+          <div className="flex-items">
+            <Navbar.Brand
+              href="#home"
+              style={{ fontSize: "40px", color: "#1976D2" }}
+            >
               ADPR System
             </Navbar.Brand>
           </div>
-          <div class="flex-items">
+          <div className="flex-items">
             <Dropdown>
               <Dropdown.Toggle id="dropdown-basic">
                 <img id="profile" alt="profile" src="/Images/user.png" />
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Edit Profile</Dropdown.Item>
+                <Dropdown.Item href="">Edit Profile</Dropdown.Item>
 
                 <NavDropdown.Divider />
                 <Dropdown.Item onClick={handleLogout}>Log Out</Dropdown.Item>
@@ -50,6 +41,7 @@ export default function Dashboard() {
           </div>
         </Navbar>
       </div>
+
       <div className="flex-container">
         <Link className="card" to="/analysis">
           <img src="/Images/Humaaans - 1 Character.png" alt="img" />

@@ -1,6 +1,5 @@
-// import "./styles.css";
-import { Navbar, Dropdown, NavDropdown, Nav } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   PieChart,
   Pie,
@@ -11,15 +10,13 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   Label,
 } from "recharts";
-import tempLineData from "../tempLineData";
-import { Redirect } from "react-router-dom";
-import { useStateValue } from "../StateProvider";
-import { auth } from "../firebase";
-import { actionTypes } from "../reducer";
-import { Link } from "react-router-dom";
+
+import Drawer from "./Drawer";
+
+import { sensorTempDataSelector } from "../store/sensor/selector";
+import { sensorGetTemp } from "../store/sensor/slice";
 
 const pieData = [{ name: "Group A", value: 100 }];
 const COLORS = ["#ffbe0b", "#38b000", "#d00000"];
@@ -27,7 +24,22 @@ const COLORS = ["#ffbe0b", "#38b000", "#d00000"];
 export default function VehicleHealth() {
   const [value, setValue] = useState(100);
   const [color, setcolor] = useState(COLORS[0]);
-  const [{ isAuthenticated }, dispatch] = useStateValue();
+
+  const tempData = useSelector(sensorTempDataSelector);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(sensorGetTemp());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      dispatch(sensorGetTemp());
+    }, 10000);
+
+    return () => clearInterval(intervalId);
+  }, [dispatch]);
 
   useEffect(() => {
     if (value <= 100) {
@@ -42,69 +54,16 @@ export default function VehicleHealth() {
     console.log({ value });
   }, [value]);
 
-  function handleLogout(e) {
-    e.preventDefault();
-
-    auth
-      .signOut()
-      .then((result) => {
-        dispatch({
-          type: actionTypes.REMOVE_USER,
-        });
-      })
-      .catch((error) => alert(error.meesage));
-  }
-
-  if (!isAuthenticated) {
-    return <Redirect to="/login" />;
-  }
-
-  // const
   return (
     <>
-      <div className="container_nav">
-        <Navbar bg="light">
-          <div class="flex-items">
-            <Navbar.Brand style={{ fontSize: "40px" }}>
-              ADPR System
-            </Navbar.Brand>
-          </div>
-          <div class="flex-items" style={{ display: "flex" }}>
-            <div
-              class="flex-items"
-              style={{ display: "flex", marginTop: "5px" }}
-            >
-              <Link to="/analysis" id="navdata">
-                Analysis
-              </Link>
-
-              <Link to="/vehicle-health">Vehicle Health</Link>
-              <Link to="/chat">Chat</Link>
-            </div>
-            <div class="flex-items">
-              <Dropdown>
-                <Dropdown.Toggle id="dropdown-basic">
-                  <img id="profile" alt="profile" src="/Images/user.png" />
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Edit Profile</Dropdown.Item>
-
-                  <NavDropdown.Divider />
-                  <Dropdown.Item onClick={handleLogout}>Log Out</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
-          </div>
-        </Navbar>
-      </div>
+      <Drawer />
 
       <div className="container-fluid">
         <div className="g2">
           <LineChart
             width={600}
             height={400}
-            data={tempLineData}
+            data={tempData}
             margin={{
               top: 40,
               right: 30,
@@ -133,7 +92,7 @@ export default function VehicleHealth() {
             <Tooltip />
             <Line
               type="monotone"
-              dataKey="temp"
+              dataKey="temperature"
               stroke="#8884d8"
               strokeWidth={3}
               activeDot={{ r: 8 }}
@@ -165,7 +124,7 @@ export default function VehicleHealth() {
                 innerRadius={120}
                 outerRadius={170}
                 fill="#8884d8"
-                paddingAngle={80}
+                paddingAngle={0}
                 dataKey="value"
                 nameKey="name"
               >

@@ -1,91 +1,50 @@
-import { Navbar, Dropdown, NavDropdown, Nav } from "react-bootstrap";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   Label,
   Area,
   AreaChart,
 } from "recharts";
-import data from "../data";
-import data2 from "../data2";
 
-import tempLineData from "../tempLineData";
-import { Redirect } from "react-router-dom";
-import { useStateValue } from "../StateProvider";
-import { auth } from "../firebase";
-import { actionTypes } from "../reducer";
-import { Link } from "react-router-dom";
+import {
+  sensorAlcoholDataSelector,
+  sensorEyeBlinkDataSelector,
+} from "../store/sensor/selector";
+import { sensorGetAlcoholAndEye } from "../store/sensor/slice";
+
+import Drawer from "./Drawer";
 
 function Analysis() {
-  const [{ isAuthenticated }, dispatch] = useStateValue();
+  const alcoholData = useSelector(sensorAlcoholDataSelector);
+  const eyeBlinkData = useSelector(sensorEyeBlinkDataSelector);
 
-  function handleLogout(e) {
-    e.preventDefault();
+  const dispatch = useDispatch();
 
-    auth
-      .signOut()
-      .then((result) => {
-        dispatch({
-          type: actionTypes.REMOVE_USER,
-        });
-      })
-      .catch((error) => alert(error.meesage));
-  }
+  useEffect(() => {
+    dispatch(sensorGetAlcoholAndEye());
+  }, [dispatch]);
 
-  if (!isAuthenticated) {
-    return <Redirect to="/login" />;
-  }
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      dispatch(sensorGetAlcoholAndEye());
+    }, 12000);
+
+    return () => clearInterval(intervalId);
+  }, [dispatch]);
 
   return (
     <>
-      <div className="container_nav">
-        <Navbar bg="light">
-          <div class="flex-items">
-            <Navbar.Brand style={{ fontSize: "40px" }}>
-              ADPR System
-            </Navbar.Brand>
-          </div>
-          <div class="flex-items" style={{ display: "flex" }}>
-            <div
-              class="flex-items"
-              style={{ display: "flex", marginTop: "5px" }}
-            >
-              <Link to="/analysis" id="navdata">
-                Analysis
-              </Link>
-
-              <Link to="/vehicle-health">Vehicle Health</Link>
-              <Link to="/chat">Chat</Link>
-            </div>
-            <div class="flex-items">
-              <Dropdown>
-                <Dropdown.Toggle id="dropdown-basic">
-                  <img id="profile" alt="profile" src="/Images/user.png" />
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Edit Profile</Dropdown.Item>
-
-                  <NavDropdown.Divider />
-                  <Dropdown.Item onClick={handleLogout}>Log Out</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
-          </div>
-        </Navbar>
-      </div>
+      <Drawer />
       <div className="container-fluid">
         <div className="g1">
           <AreaChart
             width={600}
             height={400}
-            data={data}
+            data={alcoholData}
             margin={{ top: 40, right: 30, left: 10, bottom: 20 }}
           >
             <defs>
@@ -115,7 +74,7 @@ function Analysis() {
             <Tooltip />
             <Area
               type="monotone"
-              dataKey="pv"
+              dataKey="alcohol"
               stroke="#8884d8"
               fillOpacity={1}
               fill="url(#colorUv)"
@@ -126,7 +85,7 @@ function Analysis() {
           <AreaChart
             width={600}
             height={400}
-            data={data2}
+            data={eyeBlinkData}
             margin={{ top: 40, right: 30, left: 10, bottom: 20 }}
           >
             <defs>
@@ -156,7 +115,7 @@ function Analysis() {
             <Tooltip />
             <Area
               type="monotone"
-              dataKey="pv"
+              dataKey="eyeBlink"
               stroke="#ffc658"
               fillOpacity={1}
               fill="url(#colorPv)"

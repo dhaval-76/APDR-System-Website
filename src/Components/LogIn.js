@@ -1,62 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
-import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 
-import { auth, provider } from "../firebase";
-import { actionTypes } from "../reducer";
-import { useStateValue } from "../StateProvider";
+import {
+  authErrorSelector,
+  authIsAuthenticatedSelector,
+  authIsLoadingSelector,
+} from "../store/auth/selector";
+import { authLogin } from "../store/auth/slice";
 
 export default function LogIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [{ isAuthenticated }, dispatch] = useStateValue();
+  const isLoading = useSelector(authIsLoadingSelector);
+  const isAuthenticated = useSelector(authIsAuthenticatedSelector);
+  const error = useSelector(authErrorSelector);
 
-  function handleSubmit(e) {
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated && !isLoading && error === "") {
+      console.log({ isAuthenticated, isLoading, error });
+      navigate("/", { replace: true });
+    }
+    console.log("first");
+  }, [isAuthenticated, isLoading, error, navigate]);
+
+  const loginhandler = (e) => {
     e.preventDefault();
-
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        dispatch({
-          type: actionTypes.SET_USER,
-          user: result.user,
-        });
-
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Logged In Successfully",
-          showConfirmButton: false,
-          timer: 1800,
-        });
-      })
-      .catch((error) => alert(error.meesage));
-  }
-
-  function handleGoogleSignIn(e) {
-    e.preventDefault();
-
-    auth
-      .signInWithPopup(provider)
-      .then((result) => {
-        dispatch({
-          type: actionTypes.SET_USER,
-          user: result.user,
-        });
-      })
-      .catch((error) => alert(error.meesage));
-  }
-
-  if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
-  }
+    dispatch(authLogin({ email, pass: password }));
+  };
 
   return (
     <div className="container">
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={loginhandler}>
         <div id="login">Login</div>
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -83,24 +65,23 @@ export default function LogIn() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-
-        <Button id="submit-btn" variant="success" type="submit">
-          Log In
-        </Button>
-        <div className="formlog_orContainer">
-          <div>or connect with</div>
-          <div>
-            <img
-              onClick={handleGoogleSignIn}
-              src="/Images/search.png"
-              alt="img"
-              id="formlog_orContainer_logo"
-            />
-          </div>
-          <div>
-            Don't have an account?<Link to="/signup">Sign up</Link>
-          </div>
-        </div>
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <>
+            <Button id="submit-btn" variant="success" type="submit">
+              Log In
+            </Button>
+            <div className="formlog_orContainer">
+              <div>
+                Don't have an account?
+                <Link to="/signUp" replace>
+                  Sign up
+                </Link>
+              </div>
+            </div>
+          </>
+        )}
       </Form>
     </div>
   );
