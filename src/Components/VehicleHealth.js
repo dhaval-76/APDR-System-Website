@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   PieChart,
@@ -15,17 +15,19 @@ import {
 
 import Drawer from "./Drawer";
 
-import { sensorTempDataSelector } from "../store/sensor/selector";
+import {
+  sensorHealthColorSelector,
+  sensorTempDataSelector,
+  sensorVehicleHealthSelector,
+} from "../store/sensor/selector";
 import { sensorGetTemp } from "../store/sensor/slice";
 
 const pieData = [{ name: "Group A", value: 100 }];
-const COLORS = ["#ffbe0b", "#38b000", "#d00000"];
 
 export default function VehicleHealth() {
-  const [value, setValue] = useState(100);
-  const [color, setcolor] = useState(COLORS[0]);
-
   const tempData = useSelector(sensorTempDataSelector);
+  const vehicleHealthValue = useSelector(sensorVehicleHealthSelector);
+  const healthColor = useSelector(sensorHealthColorSelector);
 
   const dispatch = useDispatch();
 
@@ -40,19 +42,6 @@ export default function VehicleHealth() {
 
     return () => clearInterval(intervalId);
   }, [dispatch]);
-
-  useEffect(() => {
-    if (value <= 100) {
-      setcolor(COLORS[0]);
-    }
-    if (value <= 60) {
-      setcolor(COLORS[1]);
-    }
-    if (value <= 30) {
-      setcolor(COLORS[2]);
-    }
-    console.log({ value });
-  }, [value]);
 
   return (
     <>
@@ -100,15 +89,6 @@ export default function VehicleHealth() {
           </LineChart>
         </div>
         <div className="g1">
-          {/* <button onClick={() => setValue(50)} type="button">
-            2nd level
-          </button>
-          <button onClick={() => setValue(20)} type="button">
-            3rd level
-          </button>
-          <button onClick={() => setValue(100)} type="button">
-            reset button
-          </button> */}
           <div
             style={{
               display: "flex",
@@ -124,7 +104,7 @@ export default function VehicleHealth() {
                 innerRadius={120}
                 outerRadius={170}
                 fill="#8884d8"
-                paddingAngle={0}
+                paddingAngle={vehicleHealthValue}
                 dataKey="value"
                 nameKey="name"
               >
@@ -137,7 +117,7 @@ export default function VehicleHealth() {
                   }}
                 />
                 {pieData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={color} />
+                  <Cell key={`cell-${index}`} fill={healthColor} />
                 ))}
               </Pie>
             </PieChart>
