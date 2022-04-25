@@ -4,13 +4,14 @@ import {
   PieChart,
   Pie,
   Cell,
-  LineChart,
-  Line,
+  
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Label,
+  AreaChart,
+  Area
 } from "recharts";
 
 import Drawer from "./Drawer";
@@ -49,44 +50,45 @@ export default function VehicleHealth() {
 
       <div className="container-fluid">
         <div className="g2">
-          <LineChart
+          <AreaChart
             width={600}
             height={400}
             data={tempData}
-            margin={{
-              top: 40,
-              right: 30,
-              left: 20,
-              bottom: 15,
-            }}
+            margin={{ top: 40, right: 30, left: 10, bottom: 20 }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
+            <defs>
+              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+              </linearGradient>
+            </defs>
             <XAxis dataKey="timeStamp">
-              <Label value="Timestamp -->" offset={-1} position="bottom" />
+              <Label value="Timestamp -->" offset={3} position="bottom" />
               <Label
-                value="Measure Of Engine Overheating "
-                offset={330}
+                value="Measure Of Engine Overheating"
+                offset={325}
                 position="top"
                 style={{ fontWeight: "500", fontSize: "30px", padding: "5px " }}
               />
             </XAxis>
             <YAxis>
               <Label
-                value="Temperature -->"
+                value="Engine Temperature -->"
                 angle={-90}
                 position="left"
                 offset={1}
               />
             </YAxis>
+            <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
-            <Line
+            <Area
               type="monotone"
               dataKey="temperature"
               stroke="#8884d8"
-              strokeWidth={3}
-              activeDot={{ r: 8 }}
+              fillOpacity={1}
+              fill="url(#colorUv)"
             />
-          </LineChart>
+          </AreaChart>
         </div>
         <div className="g1">
           <div

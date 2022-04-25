@@ -18,17 +18,15 @@ export default function Dashboard() {
       <div className="container_nav">
         <Navbar bg="light">
           <div className="flex-items">
-            <Navbar.Brand
-              href="#home"
-              style={{ fontSize: "40px", color: "#1976D2" }}
-            >
-              ADPR System
+            <Navbar.Brand style={{ fontSize: "40px", color: "#023e8a" }}>
+              APDR System
             </Navbar.Brand>
           </div>
           <div className="flex-items">
             <Dropdown>
               <Dropdown.Toggle id="dropdown-basic">
                 <img id="profile" alt="profile" src="/Images/user.png" />
+                <span>Name</span>
               </Dropdown.Toggle>
 
               <Dropdown.Menu>

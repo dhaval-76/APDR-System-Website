@@ -66,7 +66,7 @@ export default function LogIn() {
           />
         </Form.Group>
         {isLoading ? (
-          <CircularProgress />
+          <CircularProgress style={{ display:"block",marginLeft:"auto",marginRight:"auto",marginTop:"30px" }}/>
         ) : (
           <>
             <Button id="submit-btn" variant="success" type="submit">
