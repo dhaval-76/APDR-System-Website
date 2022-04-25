@@ -5,6 +5,8 @@ const initialState = {
   tempData: [],
   alcoholData: [],
   eyeBlinkData: [],
+  vehicleHealth: 0,
+  healthColor: "#d00000",
   isLoading: false,
   error: "",
 };
@@ -22,6 +24,19 @@ const sensorSlice = createSlice({
         timeStamp: moment(item.timeStamp).format("HH:mm:ss"),
       }));
 
+      if (payload.vehicleHealth <= 90) {
+        state.healthColor = "#38b000";
+      }
+
+      if (payload.vehicleHealth > 90 && payload.vehicleHealth <= 225) {
+        state.healthColor = "#ffbe0b";
+      }
+
+      if (state.vehicleHealth > 225 && payload.vehicleHealth <= 360) {
+        state.healthColor = "#d00000";
+      }
+
+      state.vehicleHealth = payload.vehicleHealth;
       state.tempData = temperatureData;
       state.isLoading = false;
     },
