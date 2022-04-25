@@ -1,11 +1,15 @@
 import React from "react";
 import { Dropdown, Navbar, NavDropdown } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { NavLink,Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, Link } from "react-router-dom";
+
+import { authNameSelector } from "../store/auth/selector";
 
 import { authLogout } from "../store/auth/slice";
 
 function Drawer() {
+  const name = useSelector(authNameSelector);
+
   const dispatch = useDispatch();
 
   const handleLogout = (e) => {
@@ -74,7 +78,7 @@ function Drawer() {
             <Dropdown>
               <Dropdown.Toggle id="dropdown-basic">
                 <img id="profile" alt="profile" src="/Images/user.png" />
-                <span>Name</span>
+                <span>{name}</span>
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
