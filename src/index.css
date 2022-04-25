@@ -173,7 +173,7 @@ a {
 .dropdown-menu[data-bs-popper] {
   top: 100%;
   margin-top: 0.125rem;
-  transform: translateX(-15%);
+  transform: translateX(15%);
   text-align: center;
   transition-duration: 1s;
 }
@@ -231,4 +231,30 @@ section {
   display: flex;
   flex-direction: column;
   padding: 20px;
+}
+
+.nav_title:hover{
+  color: #023e8a !important;
+  
+}
+
+.nav_title{
+  color: #023e8a;
+}
+
+span{
+  font-size: 25px;
+  padding: 5px;
+  color: #023e8a;
+  vertical-align:middle;
+
+}
+
+a.active{
+  height: 48px;
+}
+
+.dropdown-toggle::after {
+    color: #023e8a;
+
 }

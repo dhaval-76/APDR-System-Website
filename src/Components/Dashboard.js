@@ -1,11 +1,14 @@
 import React from "react";
 import { Dropdown, Navbar, NavDropdown } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { authNameSelector } from "../store/auth/selector";
 
 import { authLogout } from "../store/auth/slice";
 
 export default function Dashboard() {
+  const name = useSelector(authNameSelector);
+
   const dispatch = useDispatch();
 
   const handleLogout = (e) => {
@@ -18,17 +21,15 @@ export default function Dashboard() {
       <div className="container_nav">
         <Navbar bg="light">
           <div className="flex-items">
-            <Navbar.Brand
-              href="#home"
-              style={{ fontSize: "40px", color: "#1976D2" }}
-            >
-              ADPR System
+            <Navbar.Brand style={{ fontSize: "40px", color: "#023e8a" }}>
+              APDR System
             </Navbar.Brand>
           </div>
           <div className="flex-items">
             <Dropdown>
               <Dropdown.Toggle id="dropdown-basic">
                 <img id="profile" alt="profile" src="/Images/user.png" />
+                <span>{name}</span>
               </Dropdown.Toggle>
 
               <Dropdown.Menu>

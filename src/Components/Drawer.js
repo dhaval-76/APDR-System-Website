@@ -1,11 +1,15 @@
 import React from "react";
 import { Dropdown, Navbar, NavDropdown } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, Link } from "react-router-dom";
+
+import { authNameSelector } from "../store/auth/selector";
 
 import { authLogout } from "../store/auth/slice";
 
 function Drawer() {
+  const name = useSelector(authNameSelector);
+
   const dispatch = useDispatch();
 
   const handleLogout = (e) => {
@@ -18,8 +22,10 @@ function Drawer() {
     <div className="container_nav">
       <Navbar bg="light">
         <div className="flex-items">
-          <Navbar.Brand style={{ fontSize: "35px", color: "#1976D2" }}>
-            ADPR System
+          <Navbar.Brand style={{ fontSize: "35px", color: "#023e8a" }}>
+            <Link className="nav_title" to="/">
+              APDR System
+            </Link>
           </Navbar.Brand>
         </div>
         <div className="flex-items" style={{ display: "flex" }}>
@@ -32,9 +38,9 @@ function Drawer() {
                 textTransform: "lowercase",
                 margin: "0 10px",
                 borderBottom: `4px solid ${
-                  isActive ? "#1976D2" : "transparent"
+                  isActive ? "#023e8a" : "transparent"
                 }`,
-                color: isActive ? "#1976D2" : "#666666",
+                color: isActive ? "#023e8a" : "#666666",
               })}
               to="/analysis"
             >
@@ -46,9 +52,9 @@ function Drawer() {
                 textTransform: "lowercase",
                 margin: "0 10px",
                 borderBottom: `4px solid ${
-                  isActive ? "#1976D2" : "transparent"
+                  isActive ? "#023e8a" : "transparent"
                 }`,
-                color: isActive ? "#1976D2" : "#666666",
+                color: isActive ? "#023e8a" : "#666666",
               })}
               to="/vehicle-health"
             >
@@ -59,9 +65,9 @@ function Drawer() {
                 textTransform: "lowercase",
                 margin: "0 10px",
                 borderBottom: `4px solid ${
-                  isActive ? "#1976D2" : "transparent"
+                  isActive ? "#023e8a" : "transparent"
                 }`,
-                color: isActive ? "#1976D2" : "#666666",
+                color: isActive ? "#023e8a" : "#666666",
               })}
               to="/chat"
             >
@@ -72,6 +78,7 @@ function Drawer() {
             <Dropdown>
               <Dropdown.Toggle id="dropdown-basic">
                 <img id="profile" alt="profile" src="/Images/user.png" />
+                <span>{name}</span>
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
