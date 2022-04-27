@@ -2,8 +2,13 @@ import React from "react";
 import { Dropdown, Navbar, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { authNameSelector } from "../store/auth/selector";
 
+import profileImg from "../images/user.png";
+import analysisImg from "../images/Humaaans - 1 Character.png";
+import vehicleHealthImg from "../images/Beep Beep - Medium Vehicle.png";
+import chatImg from "../images/Croods - Comments.png";
+
+import { authNameSelector } from "../store/auth/selector";
 import { authLogout } from "../store/auth/slice";
 
 export default function Dashboard() {
@@ -28,7 +33,7 @@ export default function Dashboard() {
           <div className="flex-items">
             <Dropdown>
               <Dropdown.Toggle id="dropdown-basic">
-                <img id="profile" alt="profile" src="/Images/user.png" />
+                <img id="profile" alt="profile" src={profileImg} />
                 <span>{name}</span>
               </Dropdown.Toggle>
 
@@ -45,16 +50,16 @@ export default function Dashboard() {
 
       <div className="flex-container">
         <Link className="card" to="/analysis">
-          <img src="/Images/Humaaans - 1 Character.png" alt="img" />
+          <img src={analysisImg} alt="img" />
           <span id="card_footer">Analysis</span>
         </Link>
         <Link className="card" to="/vehicle-health">
-          <img src="/Images/Beep Beep - Medium Vehicle.png" alt="img" />
+          <img src={vehicleHealthImg} alt="img" />
           <span id="card_footer">Vehicle Health</span>
         </Link>
         <Link className="card" to="/chat">
           <div className="chat">
-            <img src="/Images/Croods - Comments.png" alt="img" />
+            <img src={chatImg} alt="img" />
           </div>
           <span id="card_footer">Chat</span>
         </Link>

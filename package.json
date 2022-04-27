@@ -2,7 +2,6 @@
   "name": "adpr-system",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/DJ-Strike-2021-22/APDR-System-Website",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",

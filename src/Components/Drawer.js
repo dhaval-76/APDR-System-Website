@@ -3,6 +3,8 @@ import { Dropdown, Navbar, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
 
+import profileImg from "../images/user.png";
+
 import { authNameSelector } from "../store/auth/selector";
 
 import { authLogout } from "../store/auth/slice";
@@ -77,7 +79,7 @@ function Drawer() {
           <div className="flex-items">
             <Dropdown>
               <Dropdown.Toggle id="dropdown-basic">
-                <img id="profile" alt="profile" src="/Images/user.png" />
+                <img id="profile" alt="profile" src={profileImg} />
                 <span>{name}</span>
               </Dropdown.Toggle>
 
