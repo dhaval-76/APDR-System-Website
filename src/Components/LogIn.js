@@ -25,10 +25,8 @@ export default function LogIn() {
 
   useEffect(() => {
     if (isAuthenticated && !isLoading && error === "") {
-      console.log({ isAuthenticated, isLoading, error });
       navigate("/", { replace: true });
     }
-    console.log("first");
   }, [isAuthenticated, isLoading, error, navigate]);
 
   const loginhandler = (e) => {
