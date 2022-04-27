@@ -26,9 +26,7 @@ export default function Dashboard() {
       <div className="container_nav">
         <Navbar bg="light">
           <div className="flex-items">
-            <Navbar.Brand style={{ fontSize: "40px", color: "#023e8a" }}>
-              APDR System
-            </Navbar.Brand>
+            <Navbar.Brand id="dash_title">APDR System</Navbar.Brand>
           </div>
           <div className="flex-items">
             <Dropdown>
@@ -59,7 +57,7 @@ export default function Dashboard() {
         </Link>
         <Link className="card" to="/chat">
           <div className="chat">
-            <img src={chatImg} alt="img" />
+            <img id="chat_img"  src={chatImg} alt="img" />
           </div>
           <span id="card_footer">Chat</span>
         </Link>
