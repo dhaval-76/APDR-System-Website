@@ -35,7 +35,7 @@ export default function LogIn() {
   };
 
   return (
-    <div className="container">
+    <div className="login_container">
       <Form onSubmit={loginhandler}>
         <div id="login">Login</div>
 

@@ -10,7 +10,7 @@ body {
   height: 100vh !important;
 }
 
-.container {
+.login_container {
   width: 30%;
   padding: 30px;
   background-color: rgba(255, 255, 255);
@@ -268,6 +268,12 @@ a.active{
   color: #023e8a;
 }
 
+.navbar-nav >a:hover {
+  
+  transition-duration: 500ms;
+  transform: scale(1.07);
+}
+
 @keyframes disp{
     0%{opacity: 0;}
     100%{opacity: 1;}
@@ -297,7 +303,7 @@ a.active{
 @media only screen and (max-width: 600px) 
 {
   /* For Login */
-  .container{
+  .login_container{
     width: 80%;
     transform: translateY(15%);
   }

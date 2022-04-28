@@ -1,17 +1,11 @@
 import React from "react";
-import { Dropdown, Navbar, NavDropdown } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
-
-import profileImg from "../images/user.png";
-
-import { authNameSelector } from "../store/auth/selector";
 
 import { authLogout } from "../store/auth/slice";
 
-function Drawer() {
-  const name = useSelector(authNameSelector);
-
+function Drawer({ isHomeScreen }) {
   const dispatch = useDispatch();
 
   const handleLogout = (e) => {
@@ -22,76 +16,52 @@ function Drawer() {
 
   return (
     <div className="container_nav">
-      <Navbar bg="light">
-        <div className="flex-items">
-          <Navbar.Brand style={{ fontSize: "35px", color: "#023e8a" }}>
-            <Link className="nav_title" to="/">
-              APDR System
-            </Link>
-          </Navbar.Brand>
-        </div>
-        <div className="flex-items" style={{ display: "flex" }}>
-          <div
-            className="flex-items" id="drawer"
-            style={{ display: "flex", marginTop: "5px", fontSize: 22 }}
-          >
-            <NavLink
-              style={({ isActive }) => ({
-                textTransform: "lowercase",
-                margin: "0 10px",
-                borderBottom: `4px solid ${
-                  isActive ? "#023e8a" : "transparent"
-                }`,
-                color: isActive ? "#023e8a" : "#666666",
-              })}
-              to="/analysis"
-            >
-              Analysis
-            </NavLink>
-
-            <NavLink
-              style={({ isActive }) => ({
-                textTransform: "lowercase",
-                margin: "0 10px",
-                borderBottom: `4px solid ${
-                  isActive ? "#023e8a" : "transparent"
-                }`,
-                color: isActive ? "#023e8a" : "#666666",
-              })}
-              to="/vehicle-health"
-            >
-              Vehicle Health
-            </NavLink>
-            <NavLink
-              style={({ isActive }) => ({
-                textTransform: "lowercase",
-                margin: "0 10px",
-                borderBottom: `4px solid ${
-                  isActive ? "#023e8a" : "transparent"
-                }`,
-                color: isActive ? "#023e8a" : "#666666",
-              })}
-              to="/chat"
-            >
-              Chat
-            </NavLink>
-          </div>
-          <div className="flex-items">
-            <Dropdown>
-              <Dropdown.Toggle id="dropdown-basic">
-                <img id="profile" alt="profile" src={profileImg} />
-                <span>{name}</span>
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Edit Profile</Dropdown.Item>
-
-                <NavDropdown.Divider />
-                <Dropdown.Item onClick={handleLogout}>Log Out</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
-        </div>
+      <Navbar collapseOnSelect bg="light" expand="lg" variant="light">
+        <Container className="d-flex justify-content-between flex-grow-1 pe-3">
+          <Link to="/" className="mx-lg-2 fs-3 text-primary">
+            APDR System
+          </Link>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="ms-auto">
+              {!isHomeScreen && (
+                <>
+                  <NavLink
+                    className={({ isActive }) =>
+                      `mx-lg-2 ${isActive ? "text-primary" : "text-secondary"}`
+                    }
+                    to="/analysis"
+                  >
+                    Analysis
+                  </NavLink>
+                  <NavLink
+                    className={({ isActive }) =>
+                      `mx-lg-2 ${isActive ? "text-primary" : "text-secondary"}`
+                    }
+                    to="/vehicle-health"
+                  >
+                    Vehicle Health
+                  </NavLink>
+                  <NavLink
+                    className={({ isActive }) =>
+                      `mx-lg-2 ${isActive ? "text-primary" : "text-secondary"}`
+                    }
+                    to="/chat"
+                  >
+                    Chat
+                  </NavLink>
+                </>
+              )}
+              <NavLink
+                to=""
+                className="text-secondary ms-lg-5"
+                onClick={handleLogout}
+              >
+                Logout
+              </NavLink>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
       </Navbar>
     </div>
   );
