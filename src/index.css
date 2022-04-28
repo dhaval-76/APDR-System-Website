@@ -207,6 +207,7 @@ a.dropdown-item:hover {
   background-color: white;
   border-radius: 20px;
   padding: 30px 20px;
+  animation: cards 1.5s ease-in-out;
 }
 
 .nav-link {
@@ -233,6 +234,7 @@ section {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  animation: cards 1.5s ease-in-out;
 }
 
 .nav_title:hover{
@@ -269,6 +271,13 @@ a.active{
 @keyframes disp{
     0%{opacity: 0;}
     100%{opacity: 1;}
+  }
+
+@keyframes cards{
+    0%{opacity: 0;
+    transform: scale(0);}
+    100%{opacity: 1;
+    transform: scale(1);}
   }
 
 @keyframes slidein{
@@ -315,7 +324,7 @@ a.active{
 
   .dropdown-menu[data-bs-popper]{
     transform: translateX(27%);
-    animation: disp 1s ease-in-out;
+    animation: disp 0.7s ease-in-out;
   }
 
   @keyframes disp{
@@ -356,5 +365,72 @@ a.active{
   }
   .chat{
     height: 180px;
+  }
+
+  /* Drawer on each page */
+  .flex-items{
+    display: flex;
+    flex-direction: column;
+  }
+
+  #drawer{
+    display: flex;
+    margin-top: 5px;
+    font-size: 22px;
+    flex-direction: row;
+  }
+
+  .dropdown{
+    margin-left: 50px;
+  }
+
+  /* Analysis */
+  .container-fluid{
+    display: flex;
+    flex-direction: column;
+  }
+  .g1{
+    width: 95%;
+    height: 40%;
+    margin: 10px;
+    padding: 10px;
+    animation: fade 0.5s linear;
+
+  }
+  .g2{
+    width: 95%;
+    height: 40%;
+    margin: 10px;
+    padding: 10px;
+    animation: fade 0.5s ease-in;
+  }
+
+  @keyframes fade{
+  0% {
+    transform: scale(0);
+  }
+ 
+  100% {
+    transform: scale(1);
+  }
+}
+
+  .recharts-surface{
+    width: 58%;
+    height: 80%;
+  }
+
+  tspan{
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  #pie{
+    width: 130%;
+    transform: translateX(-12%);
+  }
+  /* chat */
+  .container_chat{
+    animation:fade 0.5s ease-in ;
   }
 }

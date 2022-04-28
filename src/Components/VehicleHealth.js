@@ -72,8 +72,8 @@ export default function VehicleHealth() {
               />
             </XAxis>
             <YAxis>
-              <Label
-                value="Engine Temperature -->"
+              <Label 
+                value="Engine Temp -->"
                 angle={-90}
                 position="left"
                 offset={1}
@@ -98,7 +98,7 @@ export default function VehicleHealth() {
               justifyContent: "space-around",
             }}
           >
-            <PieChart width={600} height={400}>
+            <PieChart id="pie" width={600} height={400}>
               <Pie
                 data={pieData}
                 cx={300}
